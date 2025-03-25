@@ -5,6 +5,8 @@
 		idle: 'idle',
 		fight: 'fight',
 		fightPause: 'fightPause',
+		warn: 'warn',
+		warnPause: 'warnPause',
 		rest: 'rest',
 		restPause: 'restPause'
 	};
@@ -13,22 +15,25 @@
 	let warnTime = 5;
 	let restTime = 5;
 	let roundNumber = $state(1);
+	let deltaTime = 0.1;
 	let remainingTime = $state(roundTime);
 	let currentState = $state(State.idle);
-	let hasWarning = $state(false);
-	let deltaTime = 0.1;
 	let interval: number;
-	let isRunning = $derived(currentState === State.fight || currentState === State.rest);
+	let isRunning = $derived(
+		currentState === State.fight || currentState === State.warn || currentState === State.rest
+	);
 
 	function timerInterval() {
 		switch (currentState) {
 			case State.fight:
 				remainingTime -= deltaTime;
-				if (!hasWarning && remainingTime <= warnTime) {
-					hasWarning = true;
+				if (remainingTime <= warnTime) {
+					currentState = State.warn;
 				}
+				break;
+			case State.warn:
+				remainingTime -= deltaTime;
 				if (remainingTime <= 0) {
-					hasWarning = false;
 					remainingTime = restTime;
 					currentState = State.rest;
 				}
@@ -44,6 +49,8 @@
 			case State.idle:
 				break;
 			case State.fightPause:
+				break;
+			case State.warnPause:
 				break;
 			case State.restPause:
 				break;
@@ -63,6 +70,12 @@
 				break;
 			case State.fightPause:
 				currentState = State.fight;
+				break;
+			case State.warn:
+				currentState = State.warnPause;
+				break;
+			case State.warnPause:
+				currentState = State.warn;
 				break;
 			case State.rest:
 				currentState = State.restPause;
