@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Pause, Play, TimerReset } from '@lucide/svelte';
 	import { formatTimeMMSS, formatTimeMS } from '$lib/datetime.js';
 
 	const State = {
@@ -105,12 +106,12 @@
 		<footer>
 			<button class="btn" onclick={playPause}>
 				{#if !isRunning}
-					Start
+					<Play />
 				{:else}
-					Pause
+					<Pause />
 				{/if}
 			</button>
-			<button class="btn" onclick={resetFight} disabled={isRunning}>Reset</button>
+			<button class="btn" onclick={resetFight} disabled={isRunning}><TimerReset /></button>
 		</footer>
 	</div>
 </div>
