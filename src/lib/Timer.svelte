@@ -7,13 +7,13 @@
 	const restAudio = new Audio('bell-x3.mp3');
 
 	const State = {
-		idle: 'idle',
-		fight: 'fight',
-		fightPause: 'fightPause',
-		warn: 'warn',
-		warnPause: 'warnPause',
-		rest: 'rest',
-		restPause: 'restPause'
+		idle: 'bg-base-100',
+		fight: 'bg-green-300',
+		fightPause: 'bg-green-200',
+		warn: 'bg-yellow-300',
+		warnPause: 'bg-yellow-100',
+		rest: 'bg-red-400',
+		restPause: 'bg-red-200'
 	};
 
 	let roundTime = 10;
@@ -110,7 +110,7 @@
 
 <div class="card bg-base-100 p-2 shadow-sm">
 	<strong>Round {roundNumber}</strong>
-	<div class="card-body text-center">
+	<div class="card-body text-center {currentState}">
 		<time>
 			{formatTimeMMSS(remainingTime)}<span class="timems">{formatTimeMS(remainingTime)}</span>
 		</time>
