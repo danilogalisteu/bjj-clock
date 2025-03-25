@@ -2,6 +2,10 @@
 	import { Pause, Play, TimerReset } from '@lucide/svelte';
 	import { formatTimeMMSS, formatTimeMS } from '$lib/datetime.js';
 
+	const fightAudio = new Audio('bell-x1.mp3');
+	const warnAudio = new Audio('gavel-x3.mp3');
+	const restAudio = new Audio('bell-x3.mp3');
+
 	const State = {
 		idle: 'idle',
 		fight: 'fight',
@@ -30,6 +34,7 @@
 				remainingTime -= deltaTime;
 				if (remainingTime <= warnTime) {
 					currentState = State.warn;
+					warnAudio.play();
 				}
 				break;
 			case State.warn:
@@ -37,6 +42,7 @@
 				if (remainingTime <= 0) {
 					remainingTime = restTime;
 					currentState = State.rest;
+					restAudio.play();
 				}
 				break;
 			case State.rest:
@@ -45,6 +51,7 @@
 					remainingTime = roundTime;
 					roundNumber += 1;
 					currentState = State.fight;
+					fightAudio.play();
 				}
 				break;
 			case State.idle:
@@ -65,6 +72,7 @@
 			case State.idle:
 				interval = setInterval(timerInterval, 1000 * deltaTime);
 				currentState = State.fight;
+				fightAudio.play();
 				break;
 			case State.fight:
 				currentState = State.fightPause;
@@ -94,25 +102,28 @@
 		currentState = State.idle;
 		remainingTime = roundTime;
 		roundNumber = 1;
+		fightAudio.load();
+		warnAudio.load();
+		restAudio.load();
 	}
 </script>
 
-<div class="card bg-base-100 shadow-sm">
+<div class="card bg-base-100 p-2 shadow-sm">
+	<strong>Round {roundNumber}</strong>
 	<div class="card-body text-center">
-		Round {roundNumber}
 		<time>
 			{formatTimeMMSS(remainingTime)}<span class="timems">{formatTimeMS(remainingTime)}</span>
 		</time>
-		<footer>
-			<button class="btn" onclick={playPause}>
-				{#if !isRunning}
-					<Play />
-				{:else}
-					<Pause />
-				{/if}
-			</button>
-			<button class="btn" onclick={resetFight} disabled={isRunning}><TimerReset /></button>
-		</footer>
+	</div>
+	<div class="card-footer">
+		<button class="btn" onclick={playPause}>
+			{#if !isRunning}
+				<Play />
+			{:else}
+				<Pause />
+			{/if}
+		</button>
+		<button class="btn" onclick={resetFight} disabled={isRunning}><TimerReset /></button>
 	</div>
 </div>
 
