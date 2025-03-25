@@ -104,7 +104,6 @@
 	time {
 		display: block;
 		font-size: 5em;
-		font-family: Arial;
 		margin-bottom: 0.2em;
 	}
 	.timems {

@@ -23,11 +23,10 @@
 <style>
 	time {
 		display: block;
-		font-family: Arial;
 		margin-bottom: 0.2em;
 	}
 	.time {
-		font-size: 4em;
+		font-size: 4.5em;
 	}
 	.date {
 		font-size: 3em;

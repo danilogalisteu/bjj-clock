@@ -4,7 +4,6 @@
 </script>
 
 <main>
-	<h1>BJJ Clock</h1>
 	<Clock />
 	<Timer />
 </main>
@@ -22,7 +21,7 @@
 		text-transform: uppercase;
 		font-size: 6em;
 		margin: 0;
-		font-weight: 100;
+		font-weight: 400;
 	}
 
 	@media (min-width: 640px) {
@@ -58,7 +57,7 @@
 		font-family:
 			-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell,
 			'Helvetica Neue', sans-serif;
-		font-weight: 300;
+		font-weight: 500;
 	}
 
 	:global(a) {
