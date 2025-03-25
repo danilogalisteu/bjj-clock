@@ -96,22 +96,24 @@
 	}
 </script>
 
-<section>
-	Round {roundNumber}
-	<time>
-		{formatTimeMMSS(remainingTime)}<span class="timems">{formatTimeMS(remainingTime)}</span>
-	</time>
-	<footer>
-		<button class="primary" onclick={playPause}>
-			{#if !isRunning}
-				Start
-			{:else}
-				Pause
-			{/if}
-		</button>
-		<button onclick={resetFight} disabled={isRunning}>Reset</button>
-	</footer>
-</section>
+<div class="card bg-base-100 shadow-sm">
+	<div class="card-body text-center">
+		Round {roundNumber}
+		<time>
+			{formatTimeMMSS(remainingTime)}<span class="timems">{formatTimeMS(remainingTime)}</span>
+		</time>
+		<footer>
+			<button class="btn" onclick={playPause}>
+				{#if !isRunning}
+					Start
+				{:else}
+					Pause
+				{/if}
+			</button>
+			<button class="btn" onclick={resetFight} disabled={isRunning}>Reset</button>
+		</footer>
+	</div>
+</div>
 
 <style>
 	time {
