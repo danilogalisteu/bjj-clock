@@ -117,21 +117,23 @@
 			{formatTimeMMSS(remainingTime)}<span class="timems">{formatTimeMS(remainingTime)}</span>
 		</time>
 	</div>
-	<div class="card-body text-center gap-4">
+	<div class="card-body gap-4 text-center">
 		<div class="join join-horizontal">
 			<button class="btn btn-soft btn-success join-item">{formatTimeMMSS(roundTime)}</button>
 			<button class="btn btn-soft btn-warning join-item">{formatTimeMMSS(warnTime)}</button>
 			<button class="btn btn-soft btn-error join-item">{formatTimeMMSS(restTime)}</button>
 		</div>
 		<div class="flex justify-evenly">
-			<button class="btn" onclick={playPause}>
+			<button class="btn btn-square" onclick={playPause}>
 				{#if !isRunning}
 					<Play />
 				{:else}
 					<Pause />
 				{/if}
 			</button>
-			<button class="btn" onclick={resetFight} disabled={isRunning}><TimerReset /></button>
+			<button class="btn btn-square" onclick={resetFight} disabled={isRunning}
+				><TimerReset /></button
+			>
 		</div>
 	</div>
 </div>
