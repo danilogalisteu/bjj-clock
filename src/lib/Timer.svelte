@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { Pause, Play, TimerReset } from '@lucide/svelte';
+	import Pause from '@lucide/svelte/icons/pause';
+	import Play from '@lucide/svelte/icons/play';
+	import TimerReset from '@lucide/svelte/icons/timer-reset';
 	import { formatTimeMMSS, formatTimeMS } from '$lib/datetime.js';
 
 	const fightAudio = new Audio('bell-x1.mp3');
