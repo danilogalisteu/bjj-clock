@@ -117,9 +117,9 @@
 	</div>
 	<div class="card-body text-center gap-4">
 		<div class="join join-horizontal">
-			<button class="btn btn-success join-item">{formatTimeMMSS(roundTime)}</button>
-			<button class="btn btn-warning join-item">{formatTimeMMSS(warnTime)}</button>
-			<button class="btn btn-error join-item">{formatTimeMMSS(restTime)}</button>
+			<button class="btn btn-soft btn-success join-item">{formatTimeMMSS(roundTime)}</button>
+			<button class="btn btn-soft btn-warning join-item">{formatTimeMMSS(warnTime)}</button>
+			<button class="btn btn-soft btn-error join-item">{formatTimeMMSS(restTime)}</button>
 		</div>
 		<div class="flex justify-evenly">
 			<button class="btn" onclick={playPause}>
