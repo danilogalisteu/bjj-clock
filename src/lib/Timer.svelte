@@ -8,10 +8,10 @@
 
 	const State = {
 		idle: 'bg-base-100',
-		fight: 'bg-green-300',
+		fight: 'bg-green-400',
 		fightPause: 'bg-green-200',
-		warn: 'bg-yellow-300',
-		warnPause: 'bg-yellow-100',
+		warn: 'bg-yellow-400',
+		warnPause: 'bg-yellow-200',
 		rest: 'bg-red-400',
 		restPause: 'bg-red-200'
 	};
@@ -108,22 +108,29 @@
 	}
 </script>
 
-<div class="card bg-base-100 p-2 shadow-sm">
+<div class="card p-2 shadow-sm">
 	<strong>Round {roundNumber}</strong>
 	<div class="card-body text-center {currentState}">
 		<time>
 			{formatTimeMMSS(remainingTime)}<span class="timems">{formatTimeMS(remainingTime)}</span>
 		</time>
 	</div>
-	<div class="card-footer">
-		<button class="btn" onclick={playPause}>
-			{#if !isRunning}
-				<Play />
-			{:else}
-				<Pause />
-			{/if}
-		</button>
-		<button class="btn" onclick={resetFight} disabled={isRunning}><TimerReset /></button>
+	<div class="card-body text-center gap-4">
+		<div class="join join-horizontal">
+			<button class="btn btn-success join-item">{formatTimeMMSS(roundTime)}</button>
+			<button class="btn btn-warning join-item">{formatTimeMMSS(warnTime)}</button>
+			<button class="btn btn-error join-item">{formatTimeMMSS(restTime)}</button>
+		</div>
+		<div class="flex justify-evenly">
+			<button class="btn" onclick={playPause}>
+				{#if !isRunning}
+					<Play />
+				{:else}
+					<Pause />
+				{/if}
+			</button>
+			<button class="btn" onclick={resetFight} disabled={isRunning}><TimerReset /></button>
+		</div>
 	</div>
 </div>
 
