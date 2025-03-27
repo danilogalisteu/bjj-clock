@@ -111,21 +111,21 @@
 </script>
 
 <div class="card p-2 shadow-sm">
-	<strong>Round {roundNumber}</strong>
-	<div class="card-body text-center {currentState}">
-		<time>
-			{formatSecondsHHMMSS(remainingTime)}<span class="timems"
-				>{formatSecondsMS(remainingTime)}</span
-			>
-		</time>
-	</div>
-	<div class="card-body gap-4 text-center">
-		<div class="join join-horizontal">
+	<div class="card-body">
+		<strong>Round {roundNumber}</strong>
+		<div class="self-center {currentState}">
+			<time>
+				{formatSecondsHHMMSS(remainingTime)}<span class="timems"
+					>{formatSecondsMS(remainingTime)}</span
+				>
+			</time>
+		</div>
+		<div class="join join-horizontal self-center">
 			<button class="btn btn-soft btn-success join-item">{formatSecondsHHMMSS(roundTime)}</button>
 			<button class="btn btn-soft btn-warning join-item">{formatSecondsHHMMSS(warnTime)}</button>
 			<button class="btn btn-soft btn-error join-item">{formatSecondsHHMMSS(restTime)}</button>
 		</div>
-		<div class="flex justify-evenly">
+		<div class="flex justify-around">
 			<button class="btn btn-square" onclick={playPause}>
 				{#if !isRunning}
 					<Play />

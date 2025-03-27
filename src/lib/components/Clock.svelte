@@ -15,11 +15,11 @@
 	});
 </script>
 
-<div class="card bg-base-100 shadow-sm">
-	<div class="card-body text-center">
+<div class="card p-2 shadow-sm">
+	<div class="card-body">
 		<time datetime={time.toISOString()}>
-			<div class="time">{formatDateHHMMSS(time)}</div>
-			<div class="date">{formatDateYYMMDD(time)}</div>
+			<strong class="date">{formatDateYYMMDD(time)}</strong>
+			<div class="time self-center">{formatDateHHMMSS(time)}</div>
 		</time>
 	</div>
 </div>
@@ -30,9 +30,6 @@
 		margin-bottom: 0.2em;
 	}
 	.time {
-		font-size: 4.5em;
-	}
-	.date {
-		font-size: 3em;
+		font-size: 4em;
 	}
 </style>
