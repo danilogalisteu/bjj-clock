@@ -2,7 +2,7 @@
 	import Pause from '@lucide/svelte/icons/pause';
 	import Play from '@lucide/svelte/icons/play';
 	import TimerReset from '@lucide/svelte/icons/timer-reset';
-	import { formatTimeMMSS, formatTimeMS } from '$lib/datetime.js';
+	import { formatSecondsHHMMSS, formatSecondsMS } from '$lib/datetime.js';
 
 	const fightAudio = new Audio('bell-x1.mp3');
 	const warnAudio = new Audio('gavel-x3.mp3');
@@ -114,14 +114,16 @@
 	<strong>Round {roundNumber}</strong>
 	<div class="card-body text-center {currentState}">
 		<time>
-			{formatTimeMMSS(remainingTime)}<span class="timems">{formatTimeMS(remainingTime)}</span>
+			{formatSecondsHHMMSS(remainingTime)}<span class="timems"
+				>{formatSecondsMS(remainingTime)}</span
+			>
 		</time>
 	</div>
 	<div class="card-body gap-4 text-center">
 		<div class="join join-horizontal">
-			<button class="btn btn-soft btn-success join-item">{formatTimeMMSS(roundTime)}</button>
-			<button class="btn btn-soft btn-warning join-item">{formatTimeMMSS(warnTime)}</button>
-			<button class="btn btn-soft btn-error join-item">{formatTimeMMSS(restTime)}</button>
+			<button class="btn btn-soft btn-success join-item">{formatSecondsHHMMSS(roundTime)}</button>
+			<button class="btn btn-soft btn-warning join-item">{formatSecondsHHMMSS(warnTime)}</button>
+			<button class="btn btn-soft btn-error join-item">{formatSecondsHHMMSS(restTime)}</button>
 		</div>
 		<div class="flex justify-evenly">
 			<button class="btn btn-square" onclick={playPause}>

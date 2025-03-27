@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { formatTimeHHMMSS, formatTimeYYMMDD } from '$lib/datetime.js';
+	import { formatDateHHMMSS, formatDateYYMMDD } from '$lib/datetime.js';
 
 	let time = $state(new Date());
 
@@ -18,8 +18,8 @@
 <div class="card bg-base-100 shadow-sm">
 	<div class="card-body text-center">
 		<time datetime={time.toISOString()}>
-			<div class="time">{formatTimeHHMMSS(time)}</div>
-			<div class="date">{formatTimeYYMMDD(time)}</div>
+			<div class="time">{formatDateHHMMSS(time)}</div>
+			<div class="date">{formatDateYYMMDD(time)}</div>
 		</time>
 	</div>
 </div>
