@@ -3,8 +3,8 @@
 	import Play from '@lucide/svelte/icons/play';
 	import TimerReset from '@lucide/svelte/icons/timer-reset';
 	import { formatSecondsHHMMSS, formatSecondsMS, formatTimeHHMMSS } from '$lib/datetime.js';
-	import TimePicker from '$lib/components/ui/time-picker.svelte';
 	import { Time } from '@internationalized/date';
+	import TimePicker from '$lib/components/TimePicker.svelte';
 
 	const fightAudio = new Audio('bell-x1.mp3');
 	const warnAudio = new Audio('gavel-x3.mp3');
@@ -19,6 +19,12 @@
 		rest: 'bg-red-400',
 		restPause: 'bg-red-200'
 	};
+
+	let fightRef: HTMLButtonElement | null = null;
+	let warnRef: HTMLButtonElement | null = null;
+	let restRef: HTMLButtonElement | null = null;
+	let playRef: HTMLButtonElement | null = null;
+	let resetRef: HTMLButtonElement | null = null;
 
 	let interval: number;
 	let deltaTime = 0.1;
@@ -127,51 +133,6 @@
 	}
 </script>
 
-<dialog id="fight_time_selection" class="modal">
-	<div class="modal-box flex-col">
-		<h3 class="text-lg font-bold">Fight time</h3>
-		<div class="flex items-center">
-			<TimePicker bind:time={fightTime} />
-		</div>
-		<div class="modal-action">
-			<form method="dialog">
-				<!-- if there is a button in form, it will close the modal -->
-				<button class="btn">Close</button>
-			</form>
-		</div>
-	</div>
-</dialog>
-
-<dialog id="warn_time_selection" class="modal">
-	<div class="modal-box my-2">
-		<h3 class="text-lg font-bold">Warning time</h3>
-		<div class="flex items-center">
-			<TimePicker bind:time={warnTime} />
-		</div>
-		<div class="modal-action">
-			<form method="dialog">
-				<!-- if there is a button in form, it will close the modal -->
-				<button class="btn">Close</button>
-			</form>
-		</div>
-	</div>
-</dialog>
-
-<dialog id="rest_time_selection" class="modal">
-	<div class="modal-box">
-		<h3 class="text-lg font-bold">Rest time</h3>
-		<div class="flex items-center">
-			<TimePicker bind:time={restTime} />
-		</div>
-		<div class="modal-action">
-			<form method="dialog">
-				<!-- if there is a button in form, it will close the modal -->
-				<button class="btn">Close</button>
-			</form>
-		</div>
-	</div>
-</dialog>
-
 <div class="card p-2 shadow-sm">
 	<div class="card-body">
 		<strong>Round {roundNumber}</strong>
@@ -183,33 +144,72 @@
 			</time>
 		</div>
 		<div class="join join-horizontal self-center">
-			<button
-				onclick={() => fight_time_selection.showModal()}
-				class="btn btn-soft btn-success join-item"
-				disabled={!isIdle}>{formatTimeHHMMSS(fightTime)}</button
-			>
-			<button
-				onclick={() => warn_time_selection.showModal()}
-				class="btn btn-soft btn-warning join-item"
-				disabled={!isIdle}>{formatTimeHHMMSS(warnTime)}</button
-			>
-			<button
-				onclick={() => rest_time_selection.showModal()}
-				class="btn btn-soft btn-error join-item"
-				disabled={!isIdle}>{formatTimeHHMMSS(restTime)}</button
-			>
+			<TimePicker
+				bind:totalTime={fightTime}
+				isIdle={isIdle}
+				bind:ref={fightRef}
+				timeStep={5}
+				btnClass='btn-success'
+				onLeftFocus={() => resetRef?.focus()}
+				onRightFocus={() => warnRef?.focus()}
+			/>
+			<TimePicker
+				bind:totalTime={warnTime}
+				isIdle={isIdle}
+				bind:ref={warnRef}
+				timeStep={5}
+				btnClass='btn-warning'
+				onLeftFocus={() => fightRef?.focus()}
+				onRightFocus={() => restRef?.focus()}
+			/>
+			<TimePicker
+				bind:totalTime={restTime}
+				isIdle={isIdle}
+				bind:ref={restRef}
+				timeStep={5}
+				btnClass='btn-error'
+				onLeftFocus={() => warnRef?.focus()}
+				onRightFocus={() => playRef?.focus()}
+			/>
 		</div>
 		<div class="flex justify-around">
-			<button class="btn btn-square" onclick={playPause}>
+			<button
+				bind:this={playRef}
+				class="btn btn-square"
+				onclick={playPause}
+				onkeydown={(e) => {
+					if (e.key === 'ArrowRight') {
+						e.preventDefault();
+						resetRef?.focus();
+					} else if (e.key === 'ArrowLeft') {
+						e.preventDefault();
+						restRef?.focus();
+					}
+				}}
+			>
 				{#if !isRunning}
 					<Play />
 				{:else}
 					<Pause />
 				{/if}
 			</button>
-			<button class="btn btn-square" onclick={resetFight} disabled={isRunning}
-				><TimerReset /></button
+			<button
+				bind:this={resetRef}
+				class="btn btn-square"
+				onclick={resetFight}
+				disabled={isRunning}
+				onkeydown={(e) => {
+					if (e.key === 'ArrowRight') {
+						e.preventDefault();
+						fightRef?.focus();
+					} else if (e.key === 'ArrowLeft') {
+						e.preventDefault();
+						playRef?.focus();
+					}
+				}}
 			>
+				<TimerReset />
+			</button>
 		</div>
 	</div>
 </div>
